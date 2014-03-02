@@ -18,6 +18,8 @@ public class BoticasSipan {
     public static void main(String[] args) {
         // TODO code application logic here
         System.out.println("Bienvenidos a la Botica SIPAN");
+        boolean resultado = (5+3>8 & 3*2<8*24/3) | (9/3 >= 3 | 12>7);
+        System.out.println("El resultado de la operacion es " + resultado);
     }
     
 }
