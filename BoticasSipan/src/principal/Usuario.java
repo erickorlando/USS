@@ -6,7 +6,7 @@ package principal;
  */
 public class Usuario {
 
-    public String codigoUsuario;
+    public String CodigoUsuario;
     public String Nombres;
     public String Apellidos;
     public String Clave;
@@ -18,7 +18,7 @@ public class Usuario {
     }
 
     public Usuario(String codigo, String nombres, String apellidos, String clave, String dni) {
-        codigoUsuario = codigo;
+        CodigoUsuario = codigo;
         Nombres = nombres;
         Apellidos = apellidos;
         Clave = clave;
@@ -43,7 +43,7 @@ public class Usuario {
 
     private static void PedirDatos(Usuario usuario) {
         Helper.Escribir("Escriba el Código de Usuario");
-        usuario.codigoUsuario = Helper.LeerCadena();
+        usuario.CodigoUsuario = Helper.LeerCadena();
         Helper.Escribir("Escriba los Nombres");
         usuario.Nombres = Helper.LeerCadena();
         Helper.Escribir("Escriba los Apellidos");
@@ -92,7 +92,7 @@ public class Usuario {
         for (int i = 0; i < BoticasSipan.listaUsuarios.length; i++) {
             if (!(BoticasSipan.listaUsuarios[i] == null)) {
 
-                if (codigo.toLowerCase().equals(BoticasSipan.listaUsuarios[i].codigoUsuario.toLowerCase())) {
+                if (codigo.toLowerCase().equals(BoticasSipan.listaUsuarios[i].CodigoUsuario.toLowerCase())) {
                     Posicion = i;
                     break; // Se encontró el registro.
                 }
@@ -122,7 +122,7 @@ public class Usuario {
         // arrays de Objetos.
         for (Usuario usuario : BoticasSipan.listaUsuarios) {
             if (!(usuario == null)) {
-                Helper.Escribir(usuario.codigoUsuario + espacio
+                Helper.Escribir(usuario.CodigoUsuario + espacio
                         + usuario.Nombres + espacio
                         + usuario.Apellidos + espacio
                         + usuario.DNI);
