@@ -6,6 +6,8 @@
 
 package principal;
 
+import java.util.Date;
+
 /**
  *
  * @author Erick Orlando
@@ -19,7 +21,7 @@ public class Medicamento {
     public String CompuestoQuimico;
     public int CantidadDisponible;
     public float PrecioDisponible;
-    public String FechaVencimiento;
+    public Date FechaVencimiento;
     
     public static int Posicion;
 
@@ -29,7 +31,7 @@ public class Medicamento {
 
     public Medicamento(String codigo, String tipoMedicamento, 
             String presentacion, String nombre, String compuesto, 
-            int cantidad, float precio, String fechaVencimiento) {
+            int cantidad, float precio, Date fechaVencimiento) {
         Codigo = codigo;
         TipoMedicamento = tipoMedicamento;
         PresentacionMedicamento = presentacion;
@@ -70,8 +72,8 @@ public class Medicamento {
         medicamento.CantidadDisponible = Helper.LeerEntero();
         Helper.Escribir("Escriba el Precio");
         medicamento.PrecioDisponible = Helper.LeerFloat();
-        Helper.Escribir("Escriba la Fecha de Vencimiento (MM/AA)");
-        medicamento.FechaVencimiento = Helper.LeerCadena();
+        Helper.Escribir("Escriba la Fecha de Vencimiento (DD/MM/AAAA)");
+        medicamento.FechaVencimiento = Helper.LeerFecha();
     }
 
     private static void Actualizar() {
@@ -149,7 +151,7 @@ public class Medicamento {
                         + medicamento.CompuestoQuimico + espacio
                         + medicamento.CantidadDisponible + espacio
                         + medicamento.PrecioDisponible + espacio
-                        + medicamento.FechaVencimiento);
+                        + Helper.LeerFecha(medicamento.FechaVencimiento));
             }
         }
         Helper.SeparadorDoble();

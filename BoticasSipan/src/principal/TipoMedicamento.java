@@ -98,7 +98,7 @@ public class TipoMedicamento {
         }
     }
 
-    private static void Listar() {
+    public static void Listar() {
         Helper.LimpiarPantalla();
         Helper.Escribir("Lista de Tipos de Medicamento Registrados");
         Helper.Separador();

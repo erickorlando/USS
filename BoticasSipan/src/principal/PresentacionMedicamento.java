@@ -98,7 +98,7 @@ public class PresentacionMedicamento {
         }
     }
 
-    private static void Listar() {
+    public static void Listar() {
         Helper.LimpiarPantalla();
         Helper.Escribir("Lista de Formas de Presentación Registrados");
         Helper.Separador();

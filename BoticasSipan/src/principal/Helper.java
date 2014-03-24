@@ -5,7 +5,9 @@
  */
 package principal;
 
-import java.util.Scanner;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  *
@@ -13,6 +15,8 @@ import java.util.Scanner;
  */
 public class Helper {
 
+    // Definimos la constante para Formato de Fecha.
+    private static final String FormatoFecha = "dd/MM/yyyy";
     private static final Scanner sc = new Scanner(System.in);
 
     public static void Escribir(String Mensaje) {
@@ -35,6 +39,26 @@ public class Helper {
         return sc.next();
     }
 
+    public static Date LeerFecha() {
+        String Fecha = LeerCadena();
+        Date resultado = new Date();
+        try {
+            SimpleDateFormat formato = new SimpleDateFormat(FormatoFecha, Locale.getDefault());
+            formato.setLenient(false);
+            resultado = formato.parse(Fecha);
+            return resultado;
+        } catch (ParseException e) {
+            Escribir("El formato de Fecha ingresado no es válido, se usará fecha actual");
+            return resultado;
+        }
+    }
+    
+    public static String LeerFecha(Date fecha)
+    {
+        java.sql.Date sqlDate = new java.sql.Date(fecha.getTime());
+        return sqlDate.toString();
+    }
+
     public static int LeerEntero() {
         return sc.nextInt();
     }
@@ -48,4 +72,5 @@ public class Helper {
             System.out.println();
         }
     }
+
 }
