@@ -75,6 +75,17 @@ public class Medicamento {
         Helper.Escribir("Escriba la Fecha de Vencimiento (DD/MM/AAAA)");
         medicamento.FechaVencimiento = Helper.LeerFecha();
     }
+    
+    private static void EscogerTipo()
+    {
+        principal.TipoMedicamento.Listar();
+        
+    }
+    
+    private static void EscogerPresentacion()
+    {
+        
+    }
 
     private static void Actualizar() {
         Helper.Escribir("Ingrese el código a actualizar");
