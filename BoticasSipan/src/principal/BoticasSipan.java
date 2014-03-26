@@ -12,11 +12,13 @@ package principal;
 public class BoticasSipan {
 
     static int Intentos = 0;
+    public static String UsuarioLogueado;
     public static Usuario listaUsuarios[] = new Usuario[20];
     public static Medicamento listaMedicamentos[] = new Medicamento[20];
     public static TipoMedicamento listaTiposMedicamento[] = new TipoMedicamento[20];
     public static PresentacionMedicamento listaPresentaciones[] = new PresentacionMedicamento[20];
     public static Cliente listaClientes[] = new Cliente[20];
+    public static OperacionVenta listaOperaciones[] = new OperacionVenta[20];
 
     /**
      * @param args the command line arguments
@@ -55,9 +57,11 @@ public class BoticasSipan {
                 Usuario.ListarOpciones();
                 break;
             case 2:
+                TipoMedicamento.limpiarPantalla = true;
                 TipoMedicamento.ListarOpciones();
                 break;
             case 3:
+                PresentacionMedicamento.limpiarPantalla = true;
                 PresentacionMedicamento.ListarOpciones();
                 break;
             case 4:
@@ -77,7 +81,7 @@ public class BoticasSipan {
     public static void CargaInicial() {
         Usuario objUsuario = new Usuario("SUPERUSUARIO", "Super", "Usuario", "SUPERUSUARIO", "12345678");
         listaUsuarios[0] = objUsuario;
-        
+
         listaTiposMedicamento[0] = new TipoMedicamento("001", "Antipirético");
         listaTiposMedicamento[1] = new TipoMedicamento("002", "Antifúngico");
         listaTiposMedicamento[2] = new TipoMedicamento("003", "Analgésico");
@@ -91,7 +95,7 @@ public class BoticasSipan {
         listaTiposMedicamento[10] = new TipoMedicamento("011", "Diurético");
         listaTiposMedicamento[11] = new TipoMedicamento("012", "Laxante");
         listaTiposMedicamento[12] = new TipoMedicamento("013", "Broncodilatador.");
-        
+
         listaPresentaciones[0] = new PresentacionMedicamento("001", "Pastilla");
         listaPresentaciones[1] = new PresentacionMedicamento("002", "Capsula");
         listaPresentaciones[2] = new PresentacionMedicamento("003", "Polvo");
@@ -109,14 +113,12 @@ public class BoticasSipan {
         listaPresentaciones[14] = new PresentacionMedicamento("015", "Ampolla");
         listaPresentaciones[15] = new PresentacionMedicamento("016", "Tintura");
         listaPresentaciones[16] = new PresentacionMedicamento("017", "Mucílago");
-        
-        
+
     }
 
     public static void Login() {
         String usuario, clave;
         Usuario usuarioEncontrado = null;
-        
 
         Helper.Escribir("Para utilizar el Sistema Ud. debe ingresar su usuario y clave");
         Helper.SeparadorDoble();
@@ -135,9 +137,9 @@ public class BoticasSipan {
         }
 
         if (usuarioEncontrado != null) {
-            Helper.Escribir("Bienvenido al Sistema "
-                    + usuarioEncontrado.Nombres + " "
-                    + usuarioEncontrado.Apellidos);
+            UsuarioLogueado = usuarioEncontrado.Nombres + " "
+                    + usuarioEncontrado.Apellidos;
+            Helper.Escribir("Bienvenido al Sistema " + UsuarioLogueado);
             Intentos = 0;
             MenuOpciones();
         } else {

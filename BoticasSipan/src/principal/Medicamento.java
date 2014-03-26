@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package principal;
 
 import java.util.Date;
@@ -13,7 +12,7 @@ import java.util.Date;
  * @author Erick Orlando
  */
 public class Medicamento {
-    
+
     public String Codigo;
     public String TipoMedicamento;
     public String PresentacionMedicamento;
@@ -22,15 +21,15 @@ public class Medicamento {
     public int CantidadDisponible;
     public float PrecioDisponible;
     public Date FechaVencimiento;
-    
+
     public static int Posicion;
 
     public Medicamento() {
 
     }
 
-    public Medicamento(String codigo, String tipoMedicamento, 
-            String presentacion, String nombre, String compuesto, 
+    public Medicamento(String codigo, String tipoMedicamento,
+            String presentacion, String nombre, String compuesto,
             int cantidad, float precio, Date fechaVencimiento) {
         Codigo = codigo;
         TipoMedicamento = tipoMedicamento;
@@ -47,7 +46,7 @@ public class Medicamento {
         Helper.Separador();
 
         Medicamento medicamento = new Medicamento();
-        Helper.Escribir("Escriba el Código");
+        Helper.Escribir("Escriba el Código del Medicamento");
         medicamento.Codigo = Helper.LeerCadena();
         PedirDatos(medicamento);
         BuscarPosicionDisponible();
@@ -57,13 +56,14 @@ public class Medicamento {
         Helper.SeparadorDoble();
         ListarOpciones();
     }
-    
-    private static void PedirDatos(Medicamento medicamento)
-    {
+
+    private static void PedirDatos(Medicamento medicamento) {
         Helper.Escribir("Escriba El Tipo de Medicamento");
-        medicamento.TipoMedicamento = Helper.LeerCadena();
+        Helper.Separador();
+        medicamento.EscogerTipo();
         Helper.Escribir("Escriba la Presentacion");
-        medicamento.PresentacionMedicamento = Helper.LeerCadena();
+        Helper.Separador();
+        medicamento.EscogerPresentacion();
         Helper.Escribir("Escriba el Nombre del Medicamanto");
         medicamento.Nombre = Helper.LeerCadena();
         Helper.Escribir("Escriba el Compuesto Quimico");
@@ -75,16 +75,38 @@ public class Medicamento {
         Helper.Escribir("Escriba la Fecha de Vencimiento (DD/MM/AAAA)");
         medicamento.FechaVencimiento = Helper.LeerFecha();
     }
-    
-    private static void EscogerTipo()
-    {
+
+    private void EscogerTipo() {
+        principal.TipoMedicamento.limpiarPantalla = false;
         principal.TipoMedicamento.Listar();
-        
+        do {
+            Helper.EscribirJunto("Seleccione un código: ");
+            principal.TipoMedicamento.BuscarPorCodigo(Helper.LeerCadena());
+        } while (principal.TipoMedicamento.Posicion < 0);
+
+        if (principal.TipoMedicamento.Posicion < 0) {
+            Helper.Escribir("Codigo de Tipo de Medicamento incorrecto, se escogerá el primero de la lista");
+            principal.TipoMedicamento.Posicion = 0;
+        }
+
+        this.TipoMedicamento = BoticasSipan.listaTiposMedicamento[principal.TipoMedicamento.Posicion].Descripcion;
+
     }
-    
-    private static void EscogerPresentacion()
-    {
+
+    private void EscogerPresentacion() {
+        principal.PresentacionMedicamento.limpiarPantalla = false;
+        principal.PresentacionMedicamento.Listar();
+        do {
+            Helper.EscribirJunto("Seleccione un código: ");
+            principal.PresentacionMedicamento.BuscarPorCodigo(Helper.LeerCadena());
+        } while (principal.PresentacionMedicamento.Posicion < 0);
         
+         if (principal.PresentacionMedicamento.Posicion < 0) {
+            Helper.Escribir("Codigo de Presentacion de Medicamento incorrecto, se escogerá el primero de la lista");
+            principal.PresentacionMedicamento.Posicion = 0;
+        }
+
+        this.PresentacionMedicamento = BoticasSipan.listaPresentaciones[principal.PresentacionMedicamento.Posicion].Descripcion;
     }
 
     private static void Actualizar() {
@@ -95,6 +117,7 @@ public class Medicamento {
             Helper.Escribir("No se encontró el Medicamento " + codigo);
         } else {
             Medicamento medicamento = new Medicamento();
+            medicamento.Codigo = codigo;
             PedirDatos(medicamento);
             BoticasSipan.listaMedicamentos[Posicion] = medicamento;
             Helper.Escribir("Se actualizó correctamente el Medicamento");

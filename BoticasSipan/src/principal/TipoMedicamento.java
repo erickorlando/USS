@@ -15,6 +15,7 @@ public class TipoMedicamento {
     public String Descripcion;
 
     public static int Posicion;
+    public static boolean limpiarPantalla = true;
 
     public TipoMedicamento() {
 
@@ -76,7 +77,7 @@ public class TipoMedicamento {
         ListarOpciones();
     }
 
-    private static void BuscarPorCodigo(String codigo) {
+    public static void BuscarPorCodigo(String codigo) {
         Posicion = -1;
         for (int i = 0; i < BoticasSipan.listaTiposMedicamento.length; i++) {
             if (!(BoticasSipan.listaTiposMedicamento[i] == null)) {
@@ -99,7 +100,9 @@ public class TipoMedicamento {
     }
 
     public static void Listar() {
-        Helper.LimpiarPantalla();
+        if (limpiarPantalla) {
+            Helper.LimpiarPantalla();
+        }
         Helper.Escribir("Lista de Tipos de Medicamento Registrados");
         Helper.Separador();
         Helper.Escribir("CODIGO    DESCRIPCION");
@@ -116,7 +119,6 @@ public class TipoMedicamento {
             }
         }
         Helper.SeparadorDoble();
-        ListarOpciones();
     }
 
     public static void ListarOpciones() {
@@ -135,6 +137,7 @@ public class TipoMedicamento {
         switch (Opcion) {
             case 1:
                 Listar();
+                ListarOpciones();
                 break;
             case 2:
                 Agregar();
