@@ -25,13 +25,28 @@ public class OperacionVenta {
         Helper.SeparadorDoble();
         Helper.Escribir("Registro de Operación de Venta");
         Helper.SeparadorDoble();
+        
+        OperacionVenta venta = new OperacionVenta();
         Helper.Escribir("Escriba el DNI del Cliente");
-        BuscarClientePorCodigo();
+        venta.BuscarClientePorCodigo();
         Helper.Escribir("Ingresar los medicamentos a vender");
     }
 
-    private static void BuscarClientePorCodigo() {
-        // TODO: Realizar la busqueda de Cliente por DNI
+    private void BuscarClientePorCodigo() {
+        // Realizar la busqueda de Cliente por DNI
         // En caso no exista se creará.
+        Cliente.BuscarPorCodigo(Helper.LeerCadena());
+        if (Cliente.Posicion > -1)
+        {
+            NombreCliente = BoticasSipan.listaClientes[Cliente.Posicion].Nombres 
+                    + " " 
+                    + BoticasSipan.listaClientes[Cliente.Posicion].Apellidos;
+        }
+        else
+        {
+            Helper.Escribir("No se encontró el DNI, se procederá a crear el Cliente");
+            Helper.Separador();
+            Cliente.Agregar();
+        }
     }
 }

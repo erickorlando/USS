@@ -32,7 +32,7 @@ public class Cliente {
         PuntosBono = puntos; 
     }
     
-    private static void Agregar() {
+    public static void Agregar() {
         Helper.Escribir("Ingrese los datos del Cliente");
         Helper.Separador();
 
@@ -89,7 +89,7 @@ public class Cliente {
         ListarOpciones();
     }
 
-    private static void BuscarPorCodigo(String codigo) {
+    public static void BuscarPorCodigo(String codigo) {
         Posicion = -1;
         for (int i = 0; i < BoticasSipan.listaClientes.length; i++) {
             if (!(BoticasSipan.listaClientes[i] == null)) {
