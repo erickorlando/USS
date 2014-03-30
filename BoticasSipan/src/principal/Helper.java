@@ -31,11 +31,11 @@ public class Helper {
     }
 
     public static void Separador() {
-        Escribir("---------------------------------------------");
+        Escribir("-----------------------------------------------------------");
     }
 
     public static void SeparadorDoble() {
-        Escribir("=============================================");
+        Escribir("===========================================================");
     }
 
     public static String LeerCadena() {

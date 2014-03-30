@@ -78,6 +78,9 @@ public class BoticasSipan {
             case 7:
                 Reporte.ReporteCaja();
                 break;
+            case 8:
+                Reporte.ReporteClientes();
+                break;
             case 12:
                 Login();
                 break;
@@ -140,7 +143,7 @@ public class BoticasSipan {
 
         OperacionVenta operacion = new OperacionVenta();
         operacion.FechaVenta = new Date();
-        operacion.NombreCliente = "Fulano de Tal";
+        operacion.NombreCliente = "Juan Pérez";
         operacion.UsuarioRegistrador = "SUPERUSUARIO";
         DetalleVenta detalle = new DetalleVenta("Bentolin", 5, 9.5f);
         detalle.CalcularTotales();
@@ -154,7 +157,7 @@ public class BoticasSipan {
 
         operacion = new OperacionVenta();
         operacion.FechaVenta = new Date();
-        operacion.NombreCliente = "Erick Orlando";
+        operacion.NombreCliente = "Erick Orlando Velasco Martinez";
         operacion.UsuarioRegistrador = "SUPERUSUARIO";
         detalle = new DetalleVenta("Bentolin", 2, 9.5f);
         detalle.CalcularTotales();
