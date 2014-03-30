@@ -38,22 +38,13 @@ public class OperacionVenta {
         Helper.Separador();
         Helper.Escribir("Ingresar los medicamentos a vender");
         venta.AgregarMedicamentos();
-        if (venta.listaDetalles.length == 0)
-        {
+        if (venta.listaDetalles.length == 0) {
             // Si al final no se agregó ningun medicamento.
             BoticasSipan.MenuOpciones();
         }
         // Una vez terminado de ingresar todos los medicamentos 
         // procedemos a hacer la suma de los items.
-        float suma = 0;
-        for (DetalleVenta detalle : venta.listaDetalles) {
-            if (detalle != null) {
-                suma = suma + detalle.ImporteTotal;
-            }
-        }
-        venta.SubTotal = suma;
-        venta.Impuestos = suma * (float) (0.18);
-        venta.Total = venta.SubTotal + venta.Impuestos;
+        venta.CalcularTotales();
         Helper.Escribir("Operacion de Venta registrada exitosamente");
         Helper.SeparadorDoble();
         venta.MostrarBoleta();
@@ -103,6 +94,18 @@ public class OperacionVenta {
             cliente.PuntosBono = puntosAntesDeComprar;
             BoticasSipan.MenuOpciones();
         }
+    }
+
+    public void CalcularTotales() {
+        float suma = 0;
+        for (DetalleVenta detalle : listaDetalles) {
+            if (detalle != null) {
+                suma = suma + detalle.ImporteTotal;
+            }
+        }
+        SubTotal = suma;
+        Impuestos = suma * 0.18f;
+        Total = SubTotal + Impuestos;
     }
 
     private void BuscarClientePorCodigo() {

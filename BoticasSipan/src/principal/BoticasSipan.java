@@ -5,6 +5,8 @@
  */
 package principal;
 
+import java.util.Date;
+
 /**
  *
  * @author Equipo de Trabajo N° 1
@@ -73,6 +75,9 @@ public class BoticasSipan {
             case 6:
                 OperacionVenta.AgregarOperacion();
                 break;
+            case 7:
+                Reporte.ReporteCaja();
+                break;
             case 12:
                 Login();
                 break;
@@ -83,6 +88,9 @@ public class BoticasSipan {
 
     public static void CargaInicial() {
         listaUsuarios[0] = new Usuario("SUPERUSUARIO", "Super", "Usuario", "SUPERUSUARIO", "12345678");
+        listaUsuarios[1] = new Usuario("pepito", "Jose Manuel", "Santos Chocano", "pepito", "09846812");
+        listaUsuarios[2] = new Usuario("fulano", "Fulano", "de Tal", "fulano", "65141682");
+        listaUsuarios[3] = new Usuario("mengano", "Mengano", "Sutano", "mengano", "41859670");
 
         listaTiposMedicamento[0] = new TipoMedicamento("001", "Antipirético");
         listaTiposMedicamento[1] = new TipoMedicamento("002", "Antifúngico");
@@ -117,12 +125,49 @@ public class BoticasSipan {
         listaPresentaciones[15] = new PresentacionMedicamento("016", "Tintura");
         listaPresentaciones[16] = new PresentacionMedicamento("017", "Mucílago");
 
-        listaMedicamentos[0] = new Medicamento("0001", "Broncodilatador", "Inhalaciones", "Bentolin", "Salbutamol", 20, (float) 9.5, "15/01/2015");
-        listaMedicamentos[1] = new Medicamento("0002", "Analgésico", "Pastilla", "Panadol", "Paracetamol", 20, (float) 1.2, "29/03/2014");
-        listaMedicamentos[2] = new Medicamento("0003", "Antinflamatorio", "Pastilla", "Amoxil", "Amoxicilina", 20, (float) 0.5, "16/04/2014");
-        listaMedicamentos[3] = new Medicamento("0004", "Antihistamínico", "Pastilla", "Nastizol", "Clorfeniramina", 20, (float) 1, "21/02/2014");
-        listaMedicamentos[4] = new Medicamento("0005", "Laxante", "Jarabes", "Limonada Markos", "Emuliken", 20, (float) 16.2, "15/12/2015");
-        listaMedicamentos[5] = new Medicamento("0006", "Multivitamínico", "Polvo", "Ensure", "Maltodextrina", 20, (float) 99.9, "7/04/2014");
+        listaMedicamentos[0] = new Medicamento("0001", "Broncodilatador", "Inhalaciones", "Bentolin", "Salbutamol", 20, 9.5f, "15/01/2015");
+        listaMedicamentos[1] = new Medicamento("0002", "Analgésico", "Pastilla", "Panadol", "Paracetamol", 20, 1.2f, "29/03/2014");
+        listaMedicamentos[2] = new Medicamento("0003", "Antinflamatorio", "Pastilla", "Amoxil", "Amoxicilina", 20, 0.5f, "16/04/2014");
+        listaMedicamentos[3] = new Medicamento("0004", "Antihistamínico", "Pastilla", "Nastizol", "Clorfeniramina", 20, 1f, "21/02/2014");
+        listaMedicamentos[4] = new Medicamento("0005", "Laxante", "Jarabes", "Limonada Markos", "Emuliken", 20, 16.2f, "15/12/2015");
+        listaMedicamentos[5] = new Medicamento("0006", "Multivitamínico", "Polvo", "Ensure", "Maltodextrina", 20, 99.9f, "7/04/2014");
+
+        listaClientes[0] = new Cliente("12345678", "Juan", "Pérez", 990);
+        listaClientes[1] = new Cliente("87654321", "Miguel", "Coloma Huapaya", 1420);
+        listaClientes[2] = new Cliente("43153894", "Erick Orlando", "Velasco Martinez", 1420);
+        listaClientes[3] = new Cliente("07812345", "Jhon", "Chumpitazi Fuñoli", 7434);
+        listaClientes[4] = new Cliente("06954321", "Vives Garnique", "Luis Alberto", 726);
+
+        OperacionVenta operacion = new OperacionVenta();
+        operacion.FechaVenta = new Date();
+        operacion.NombreCliente = "Fulano de Tal";
+        operacion.UsuarioRegistrador = "SUPERUSUARIO";
+        DetalleVenta detalle = new DetalleVenta("Bentolin", 5, 9.5f);
+        detalle.CalcularTotales();
+        operacion.listaDetalles[0] = detalle;
+        detalle = new DetalleVenta("Limonada Markos", 2, 16.2f);
+        detalle.CalcularTotales();
+        operacion.listaDetalles[1] = detalle;
+        operacion.CalcularTotales();
+
+        listaOperaciones[0] = operacion;
+
+        operacion = new OperacionVenta();
+        operacion.FechaVenta = new Date();
+        operacion.NombreCliente = "Erick Orlando";
+        operacion.UsuarioRegistrador = "SUPERUSUARIO";
+        detalle = new DetalleVenta("Bentolin", 2, 9.5f);
+        detalle.CalcularTotales();
+        operacion.listaDetalles[0] = detalle;
+        detalle = new DetalleVenta("Limonada Markos", 1, 16.2f);
+        detalle.CalcularTotales();
+        operacion.listaDetalles[1] = detalle;
+        detalle = new DetalleVenta("Ensure", 3, 99.9f);
+        detalle.CalcularTotales();
+        operacion.listaDetalles[2] = detalle;
+        operacion.CalcularTotales();
+
+        listaOperaciones[1] = operacion;
     }
 
     public static void Login() {
@@ -163,7 +208,5 @@ public class BoticasSipan {
             }
         }
     }
-
-    
 
 }
