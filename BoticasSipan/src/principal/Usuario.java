@@ -45,9 +45,9 @@ public class Usuario {
         Helper.Escribir("Escriba el Código de Usuario");
         usuario.CodigoUsuario = Helper.LeerCadena();
         Helper.Escribir("Escriba los Nombres");
-        usuario.Nombres = Helper.LeerCadena();
+        usuario.Nombres = Helper.LeerLinea();
         Helper.Escribir("Escriba los Apellidos");
-        usuario.Apellidos = Helper.LeerCadena();
+        usuario.Apellidos = Helper.LeerLinea();
         Helper.Escribir("Escriba el DNI");
         usuario.DNI = Helper.LeerCadena();
         Helper.Escribir("Escriba la clave");

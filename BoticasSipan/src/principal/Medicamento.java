@@ -30,7 +30,7 @@ public class Medicamento {
 
     public Medicamento(String codigo, String tipoMedicamento,
             String presentacion, String nombre, String compuesto,
-            int cantidad, float precio, Date fechaVencimiento) {
+            int cantidad, float precio, String fechaVencimiento) {
         Codigo = codigo;
         TipoMedicamento = tipoMedicamento;
         PresentacionMedicamento = presentacion;
@@ -38,7 +38,7 @@ public class Medicamento {
         CompuestoQuimico = compuesto;
         CantidadDisponible = cantidad;
         PrecioDisponible = precio;
-        FechaVencimiento = fechaVencimiento;
+        FechaVencimiento = Helper.LeerFecha(fechaVencimiento);
     }
 
     private static void Agregar() {
@@ -65,15 +65,15 @@ public class Medicamento {
         Helper.Separador();
         medicamento.EscogerPresentacion();
         Helper.Escribir("Escriba el Nombre del Medicamanto");
-        medicamento.Nombre = Helper.LeerCadena();
+        medicamento.Nombre = Helper.LeerLinea();
         Helper.Escribir("Escriba el Compuesto Quimico");
-        medicamento.CompuestoQuimico = Helper.LeerCadena();
+        medicamento.CompuestoQuimico = Helper.LeerLinea();
         Helper.Escribir("Escriba la Cantidad Disponible");
         medicamento.CantidadDisponible = Helper.LeerEntero();
         Helper.Escribir("Escriba el Precio");
         medicamento.PrecioDisponible = Helper.LeerFloat();
         Helper.Escribir("Escriba la Fecha de Vencimiento (DD/MM/AAAA)");
-        medicamento.FechaVencimiento = Helper.LeerFecha();
+        medicamento.FechaVencimiento = Helper.LeerFecha(Helper.LeerCadena());
     }
 
     private void EscogerTipo() {
@@ -149,6 +149,20 @@ public class Medicamento {
             if (!(BoticasSipan.listaMedicamentos[i] == null)) {
 
                 if (codigo.toLowerCase().equals(BoticasSipan.listaMedicamentos[i].Codigo.toLowerCase())) {
+                    Posicion = i;
+                    break; // Se encontró el registro.
+                }
+            }
+        }
+    }
+    
+    public static void BuscarPorNombre(String nombre) {
+        Posicion = -1;
+        for (int i = 0; i < BoticasSipan.listaMedicamentos.length; i++) {
+            if (!(BoticasSipan.listaMedicamentos[i] == null)) {
+                // Realizamos la búsqueda por los primeros caracteres.
+                if (BoticasSipan.listaMedicamentos[i].Nombre.toLowerCase().toLowerCase()
+                        .startsWith(nombre.toLowerCase())) {
                     Posicion = i;
                     break; // Se encontró el registro.
                 }

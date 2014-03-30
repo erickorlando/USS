@@ -7,7 +7,9 @@ package principal;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Scanner;
 
 /**
  *
@@ -18,6 +20,7 @@ public class Helper {
     // Definimos la constante para Formato de Fecha.
     private static final String FormatoFecha = "dd/MM/yyyy";
     private static final Scanner sc = new Scanner(System.in);
+    public static Date FechaActual = new Date();
 
     public static void Escribir(String Mensaje) {
         System.out.println(Mensaje);
@@ -39,8 +42,14 @@ public class Helper {
         return sc.next();
     }
 
-    public static Date LeerFecha() {
-        String Fecha = LeerCadena();
+    public static String LeerLinea() {
+        String valor = LeerCadena();
+        valor = valor + sc.nextLine();
+        Escribir(valor);
+        return valor;
+    }
+
+    public static Date LeerFecha(String Fecha) {
         Date resultado = new Date();
         try {
             SimpleDateFormat formato = new SimpleDateFormat(FormatoFecha, Locale.getDefault());
@@ -49,12 +58,25 @@ public class Helper {
             return resultado;
         } catch (ParseException e) {
             Escribir("El formato de Fecha ingresado no es válido, se usará fecha actual");
+            Escribir(e.getMessage());
             return resultado;
         }
     }
-    
-    public static String LeerFecha(Date fecha)
-    {
+
+    public static boolean CompararFecha(Date fecha) {
+        boolean resultado;
+
+        resultado = fecha.before(FechaActual);
+        // En caso la Fecha Actual no está antes que la fecha ingresada.
+        if (!resultado) {
+            if (fecha == FechaActual) {
+                resultado = true;
+            }
+        }
+        return resultado;
+    }
+
+    public static String LeerFecha(Date fecha) {
         java.sql.Date sqlDate = new java.sql.Date(fecha.getTime());
         return sqlDate.toString();
     }

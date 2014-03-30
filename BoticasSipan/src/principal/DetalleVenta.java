@@ -16,6 +16,7 @@ public class DetalleVenta {
     public float PrecioUnitario;
     public float ImporteTotal;
     
+    public int PosicionMedicamento;
     
     public DetalleVenta()
     {

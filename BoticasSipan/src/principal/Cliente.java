@@ -45,15 +45,14 @@ public class Cliente {
         BoticasSipan.listaClientes[Posicion] = cliente;
         Helper.Escribir("Se agregó correctamente el Cliente");
         Helper.SeparadorDoble();
-        ListarOpciones();
     }
     
     private static void PedirDatos(Cliente cliente)
     {
         Helper.Escribir("Escriba los Apellidos");
-        cliente.Apellidos = Helper.LeerCadena();
+        cliente.Apellidos = Helper.LeerLinea();
         Helper.Escribir("Escriba los Nombres");
-        cliente.Nombres = Helper.LeerCadena();
+        cliente.Nombres = Helper.LeerLinea();
     }
 
     private static void Actualizar() {
@@ -153,6 +152,7 @@ public class Cliente {
                 break;
             case 2:
                 Agregar();
+                ListarOpciones();
                 break;
             case 3:
                 Actualizar();
