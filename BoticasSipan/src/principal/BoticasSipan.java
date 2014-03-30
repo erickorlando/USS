@@ -163,20 +163,7 @@ public class BoticasSipan {
             }
         }
     }
+
     
-    public static void ReporteCaja()
-    {
-        Helper.Escribir("Ingrese una fecha para emitir el Reporte");
-        java.util.Date fecha = Helper.LeerFecha(Helper.LeerCadena());
-        
-        Helper.SeparadorDoble();
-        Helper.EscribirJunto("Reporte de Ventas del: " + Helper.LeerFecha(fecha));
-        Helper.EscribirJunto("Usuario: " + UsuarioLogueado);
-        Helper.Escribir("");
-        Helper.SeparadorDoble();
-        Helper.Escribir("Medicamento\t\tMonto Recaudado");
-        Helper.Separador();
-       
-    }
 
 }

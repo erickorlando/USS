@@ -38,6 +38,11 @@ public class OperacionVenta {
         Helper.Separador();
         Helper.Escribir("Ingresar los medicamentos a vender");
         venta.AgregarMedicamentos();
+        if (venta.listaDetalles.length == 0)
+        {
+            // Si al final no se agregó ningun medicamento.
+            BoticasSipan.MenuOpciones();
+        }
         // Una vez terminado de ingresar todos los medicamentos 
         // procedemos a hacer la suma de los items.
         float suma = 0;
@@ -56,9 +61,9 @@ public class OperacionVenta {
         // Actualizamos los puntos bono del Cliente.
         Cliente cliente = BoticasSipan.listaClientes[Cliente.Posicion];
         int puntosAntesDeComprar = cliente.PuntosBono;
-        cliente.PuntosBono = puntosAntesDeComprar + (int) suma;
-        Helper.Escribir("En esta compra el cliente ha ganado " + (int) suma + " Puntos Bono.");
-        Helper.Escribir("Total de puntos Bono:\t" + cliente.PuntosBono);
+        cliente.PuntosBono = puntosAntesDeComprar + (int) venta.Total;
+        Helper.Escribir("En esta compra el cliente ha ganado " + (int) venta.Total + " Puntos Bono.");
+        Helper.Escribir("Total de Puntos Bono acumulados:\t" + cliente.PuntosBono);
         Helper.SeparadorDoble();
 
         Helper.EscribirJunto("El cliente desea pagar con Puntos Bono? [S/N]");
@@ -79,7 +84,10 @@ public class OperacionVenta {
 
         if (ventaRealizada) {
             venta.ActualizarStockMedicamentos();
-            cliente.PuntosBono = 0;
+            if (pagoConPuntos) {
+                cliente.PuntosBono = 0;
+            }
+            BoticasSipan.listaClientes[Cliente.Posicion] = cliente;
             // Agregamos la Venta a la clase Principal.
             BuscarPosicionDisponible();
             BoticasSipan.listaOperaciones[Posicion] = venta;
@@ -87,6 +95,8 @@ public class OperacionVenta {
             Helper.Escribir("Venta exitosa. Desea realizar otra Operación de Venta? [S/N]");
             if (Helper.LeerCadena().toLowerCase().equals("s")) {
                 AgregarOperacion();
+            } else {
+                BoticasSipan.MenuOpciones();
             }
         } else {
             // Como se cancela la venta se regresan los puntos Bono antes de comprar.
