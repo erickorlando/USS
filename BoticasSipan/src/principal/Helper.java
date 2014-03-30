@@ -45,7 +45,6 @@ public class Helper {
     public static String LeerLinea() {
         String valor = LeerCadena();
         valor = valor + sc.nextLine();
-        Escribir(valor);
         return valor;
     }
 
