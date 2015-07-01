@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package principal;
 
 /**
@@ -11,10 +10,12 @@ package principal;
  * @author Erick Orlando
  */
 public class PresentacionMedicamento {
+
     public String Codigo;
     public String Descripcion;
 
     public static int Posicion;
+    public static boolean limpiarPantalla = true;
 
     public PresentacionMedicamento() {
 
@@ -76,7 +77,7 @@ public class PresentacionMedicamento {
         ListarOpciones();
     }
 
-    private static void BuscarPorCodigo(String codigo) {
+    public static void BuscarPorCodigo(String codigo) {
         Posicion = -1;
         for (int i = 0; i < BoticasSipan.listaPresentaciones.length; i++) {
             if (!(BoticasSipan.listaPresentaciones[i] == null)) {
@@ -99,7 +100,9 @@ public class PresentacionMedicamento {
     }
 
     public static void Listar() {
-        Helper.LimpiarPantalla();
+        if (limpiarPantalla) {
+            Helper.LimpiarPantalla();
+        }
         Helper.Escribir("Lista de Formas de Presentación Registrados");
         Helper.Separador();
         Helper.Escribir("CODIGO    DESCRIPCION");
@@ -116,7 +119,6 @@ public class PresentacionMedicamento {
             }
         }
         Helper.SeparadorDoble();
-        ListarOpciones();
     }
 
     public static void ListarOpciones() {
@@ -135,6 +137,7 @@ public class PresentacionMedicamento {
         switch (Opcion) {
             case 1:
                 Listar();
+                ListarOpciones();
                 break;
             case 2:
                 Agregar();

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package principal;
 
 import java.util.Date;
@@ -13,7 +12,7 @@ import java.util.Date;
  * @author Erick Orlando
  */
 public class Medicamento {
-    
+
     public String Codigo;
     public String TipoMedicamento;
     public String PresentacionMedicamento;
@@ -22,16 +21,16 @@ public class Medicamento {
     public int CantidadDisponible;
     public float PrecioDisponible;
     public Date FechaVencimiento;
-    
+
     public static int Posicion;
 
     public Medicamento() {
 
     }
 
-    public Medicamento(String codigo, String tipoMedicamento, 
-            String presentacion, String nombre, String compuesto, 
-            int cantidad, float precio, Date fechaVencimiento) {
+    public Medicamento(String codigo, String tipoMedicamento,
+            String presentacion, String nombre, String compuesto,
+            int cantidad, float precio, String fechaVencimiento) {
         Codigo = codigo;
         TipoMedicamento = tipoMedicamento;
         PresentacionMedicamento = presentacion;
@@ -39,7 +38,7 @@ public class Medicamento {
         CompuestoQuimico = compuesto;
         CantidadDisponible = cantidad;
         PrecioDisponible = precio;
-        FechaVencimiento = fechaVencimiento;
+        FechaVencimiento = Helper.LeerFecha(fechaVencimiento);
     }
 
     private static void Agregar() {
@@ -47,7 +46,7 @@ public class Medicamento {
         Helper.Separador();
 
         Medicamento medicamento = new Medicamento();
-        Helper.Escribir("Escriba el Código");
+        Helper.Escribir("Escriba el Código del Medicamento");
         medicamento.Codigo = Helper.LeerCadena();
         PedirDatos(medicamento);
         BuscarPosicionDisponible();
@@ -57,34 +56,57 @@ public class Medicamento {
         Helper.SeparadorDoble();
         ListarOpciones();
     }
-    
-    private static void PedirDatos(Medicamento medicamento)
-    {
+
+    private static void PedirDatos(Medicamento medicamento) {
         Helper.Escribir("Escriba El Tipo de Medicamento");
-        medicamento.TipoMedicamento = Helper.LeerCadena();
+        Helper.Separador();
+        medicamento.EscogerTipo();
         Helper.Escribir("Escriba la Presentacion");
-        medicamento.PresentacionMedicamento = Helper.LeerCadena();
+        Helper.Separador();
+        medicamento.EscogerPresentacion();
         Helper.Escribir("Escriba el Nombre del Medicamanto");
-        medicamento.Nombre = Helper.LeerCadena();
+        medicamento.Nombre = Helper.LeerLinea();
         Helper.Escribir("Escriba el Compuesto Quimico");
-        medicamento.CompuestoQuimico = Helper.LeerCadena();
+        medicamento.CompuestoQuimico = Helper.LeerLinea();
         Helper.Escribir("Escriba la Cantidad Disponible");
         medicamento.CantidadDisponible = Helper.LeerEntero();
         Helper.Escribir("Escriba el Precio");
         medicamento.PrecioDisponible = Helper.LeerFloat();
         Helper.Escribir("Escriba la Fecha de Vencimiento (DD/MM/AAAA)");
-        medicamento.FechaVencimiento = Helper.LeerFecha();
+        medicamento.FechaVencimiento = Helper.LeerFecha(Helper.LeerCadena());
     }
-    
-    private static void EscogerTipo()
-    {
+
+    private void EscogerTipo() {
+        principal.TipoMedicamento.limpiarPantalla = false;
         principal.TipoMedicamento.Listar();
-        
+        do {
+            Helper.EscribirJunto("Seleccione un código: ");
+            principal.TipoMedicamento.BuscarPorCodigo(Helper.LeerCadena());
+        } while (principal.TipoMedicamento.Posicion < 0);
+
+        if (principal.TipoMedicamento.Posicion < 0) {
+            Helper.Escribir("Codigo de Tipo de Medicamento incorrecto, se escogerá el primero de la lista");
+            principal.TipoMedicamento.Posicion = 0;
+        }
+
+        this.TipoMedicamento = BoticasSipan.listaTiposMedicamento[principal.TipoMedicamento.Posicion].Descripcion;
+
     }
-    
-    private static void EscogerPresentacion()
-    {
+
+    private void EscogerPresentacion() {
+        principal.PresentacionMedicamento.limpiarPantalla = false;
+        principal.PresentacionMedicamento.Listar();
+        do {
+            Helper.EscribirJunto("Seleccione un código: ");
+            principal.PresentacionMedicamento.BuscarPorCodigo(Helper.LeerCadena());
+        } while (principal.PresentacionMedicamento.Posicion < 0);
         
+         if (principal.PresentacionMedicamento.Posicion < 0) {
+            Helper.Escribir("Codigo de Presentacion de Medicamento incorrecto, se escogerá el primero de la lista");
+            principal.PresentacionMedicamento.Posicion = 0;
+        }
+
+        this.PresentacionMedicamento = BoticasSipan.listaPresentaciones[principal.PresentacionMedicamento.Posicion].Descripcion;
     }
 
     private static void Actualizar() {
@@ -95,6 +117,7 @@ public class Medicamento {
             Helper.Escribir("No se encontró el Medicamento " + codigo);
         } else {
             Medicamento medicamento = new Medicamento();
+            medicamento.Codigo = codigo;
             PedirDatos(medicamento);
             BoticasSipan.listaMedicamentos[Posicion] = medicamento;
             Helper.Escribir("Se actualizó correctamente el Medicamento");
@@ -126,6 +149,20 @@ public class Medicamento {
             if (!(BoticasSipan.listaMedicamentos[i] == null)) {
 
                 if (codigo.toLowerCase().equals(BoticasSipan.listaMedicamentos[i].Codigo.toLowerCase())) {
+                    Posicion = i;
+                    break; // Se encontró el registro.
+                }
+            }
+        }
+    }
+    
+    public static void BuscarPorNombre(String nombre) {
+        Posicion = -1;
+        for (int i = 0; i < BoticasSipan.listaMedicamentos.length; i++) {
+            if (!(BoticasSipan.listaMedicamentos[i] == null)) {
+                // Realizamos la búsqueda por los primeros caracteres.
+                if (BoticasSipan.listaMedicamentos[i].Nombre.toLowerCase().toLowerCase()
+                        .startsWith(nombre.toLowerCase())) {
                     Posicion = i;
                     break; // Se encontró el registro.
                 }
