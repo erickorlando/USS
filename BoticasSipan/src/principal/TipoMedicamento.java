@@ -76,7 +76,7 @@ public class TipoMedicamento {
         ListarOpciones();
     }
 
-    private static void BuscarPorCodigo(String codigo) {
+    public static void BuscarPorCodigo(String codigo) {
         Posicion = -1;
         for (int i = 0; i < BoticasSipan.listaTiposMedicamento.length; i++) {
             if (!(BoticasSipan.listaTiposMedicamento[i] == null)) {
